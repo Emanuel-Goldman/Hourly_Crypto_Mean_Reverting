@@ -1,67 +1,73 @@
 # Hourly Crypto Momentum Strategy
 
-
 ## Current Status & Next Steps
 
-This project is **in active development**. 
+This project is **in active development**.
+
+So far, the research has **found empirical evidence of mean-reverting behavior** in cryptocurrency prices.  
+A **directional prediction model** has been successfully developed to estimate short-term price direction based on technical indicators.  
+
+### 🔜 Next Steps
+The next phase focuses on **converting model outputs into tradeable signals**, integrating confidence thresholds, and constructing a **signal-based trading framework** with backtesting and risk control.
 
 ---
 
+## Overview
+
 This project builds and tests an **algorithmic trading strategy** for the **cryptocurrency market**.  
-The focus is on understanding whether technical, sentiment, and fundamental indicators contain **predictive power** for short-term market direction.
+The goal is to determine whether technical, sentiment, and fundamental indicators contain **predictive power** for short-term market direction — and to use those predictions to design profitable trading signals.
 
 ---
 
 ## Data
-- **Source:** Top 100 market-cap cryptocurrencies available on Binance.  
-- **Frequency:** Hourly candles (open, high, low, close, volume).  
-- Additional data includes **Sentiment, market cap, age, and other coin-level features**.
+
+- **Source:** Top 100 market-cap cryptocurrencies from Binance  
+- **Frequency:** Hourly OHLCV candles (`open`, `high`, `low`, `close`, `volume`)  
+- Additional features include **momentum**, **RSI**, **MFI**, and other technical indicators engineered from historical data
 
 ---
 
 ## Project Structure
 
-### **A. Technical Indicator Analysis**
-- `A_MAD_indicator.ipynb` — Tests **Moving Average Distance (MAD)** for predictive power using regression methods inspired by *Avramov, Kaplanski & Subrahmanyam (2018)*.  
-- `B_RSI_indicator.ipynb` — Evaluates the **Relative Strength Index (RSI)** and its ability to predict future returns, comparing standard and modified RSI configurations.  
-- `C_Volume_indicators.ipynb` — Analyzes **volume-based metrics** such as volume spikes, volume/price divergence, and volume-weighted momentum.
+### **A. Data and Feature Engineering**
 
-### **B. Sentiment and Fundamentals**
-- `D_Sentiment_indicator.ipynb` — Incorporates **sentiment data** (social media, aggregated market mood) to assess its predictive relationship with price movements.  
-- `E_fundamentals_indicators.ipynb` — Examines **fundamental attributes** (market cap, age, supply metrics) and their influence on volatility and trend strength.
+- `A_Data_Preprocessing.ipynb` — Loads and cleans raw hourly data  
+- `B_MAD_Indicator.ipynb` — Tests **Moving Average Distance (MAD)** for predictive power, inspired by *Avramov, Kaplanski & Subrahmanyam (2018)*  
+- `C_RSI_Indicator.ipynb` — Builds and evaluates **RSI-based features** across multiple time horizons  
+- `D_Volume_Indicators.ipynb` — Derives **volume-driven indicators** such as MFI and volume z-scores  
+- `E_Feature_Engineering.ipynb` — Combines all engineered indicators into a single modeling dataset
 
-### **C. Regime Labeling and Prediction**
-- `F_Regime_Labels.ipynb` — Defines **market regimes** based on price trends:  
-  - **1 → Uptrend**  
-  - **-1 → Downtrend**  
-  - **0 → Choppy / sideways market**  
-- `G_Regime_Prediction.ipynb` — Builds a **predictive model** to forecast the regime **10 hours ahead** using the most significant features discovered in earlier notebooks.
+### **B. Modeling**
 
-### **D. Final Strategy**
-- `H_Final_Strategy.ipynb` — Combines all modules into a **trading system**:  
-  - Converts model predictions into **confidence-weighted trade signals**.  
-  - Applies **dynamic stop-loss and take-profit** levels based on each coin’s volatility.  
-  - Evaluates strategy performance across assets and regimes.
+- `F_RF_Direction_Model.ipynb` — Trains a **Random Forest direction model** to predict the probability of upward or downward price movement  
+  - Empirically confirms **mean-reverting dynamics** in short to medium horizons (24–168 hours)  
+  - Produces **model probabilities** used for further signal generation
+
+### **C. Strategy Layer**
+
+- `H_Final_Strategy.ipynb` — *(In progress)*  
+  - Converts model probabilities into **confidence-weighted trading signals**  
+  - Implements filters for volatility, regime detection, and position sizing  
+  - Prepares the framework for **backtesting and performance evaluation**
 
 ---
 
 ## Methodology Summary
-1. **Feature discovery:** Identify indicators with significant predictive power.  
-2. **Labeling:** Define the market state (up, down, choppy).  
-3. **Modeling:** Train a model to predict the regime 10 hours forward.  
-4. **Signal generation:** Use model confidence to determine trade entries.  
-5. **Risk management:** Adaptive stop-loss / take-profit based on volatility.
+
+1. **Feature Discovery** — Identify indicators with statistical or predictive significance  
+2. **Labeling** — Define future returns and binary direction labels  
+3. **Modeling** — Train ML models to capture directional patterns and mean reversion  
+4. **Signal Generation** — Use model confidence to generate tradeable buy/sell signals  
+5. **Evaluation** — Test predictive power and profitability across different horizons
 
 ---
 
 ## Goal
-To build an interpretable, data-driven trading framework that links:
-- **Technical indicators** (momentum, trend, volatility)
-- **Sentiment and fundamental data**
-- **Machine learning predictions**
-  
-into one unified strategy for the cryptocurrency market.
 
----
+To build a **data-driven, interpretable trading framework** that combines:
 
-**And that’s it — good luck to us! **
+- **Technical indicators** (momentum, volatility, volume)  
+- **Empirical mean-reversion behavior**  
+- **Machine learning–based directional forecasts**
+
+into a unified **signal-generation and strategy execution system** for cryptocurrency markets.
