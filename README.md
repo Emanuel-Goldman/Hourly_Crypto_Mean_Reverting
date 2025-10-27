@@ -1,4 +1,4 @@
-# Hourly Crypto Momentum Strategy
+# Hourly Crypto Mean Reversion Strategy
 
 ## Current Status & Next Steps
 
@@ -15,7 +15,7 @@ The next phase focuses on **converting model outputs into tradeable signals**, i
 ## Overview
 
 This project builds and tests an **algorithmic trading strategy** for the **cryptocurrency market**.  
-The goal is to determine whether technical, sentiment, and fundamental indicators contain **predictive power** for short-term market direction — and to use those predictions to design profitable trading signals.
+The goal is to determine whether technical, sentiment, and fundamental indicators contain **predictive power** for short-term mean reversion — and to use those predictions to design profitable trading signals.
 
 ---
 
@@ -23,7 +23,7 @@ The goal is to determine whether technical, sentiment, and fundamental indicator
 
 - **Source:** Top 100 market-cap cryptocurrencies from Binance  
 - **Frequency:** Hourly OHLCV candles (`open`, `high`, `low`, `close`, `volume`)  
-- Additional features include **momentum**, **RSI**, **MFI**, and other technical indicators engineered from historical data
+- Additional features include **mean-reversion indicators** such as **MAD**, **RSI**, and **MFI**, engineered from historical data
 
 ---
 
@@ -32,14 +32,14 @@ The goal is to determine whether technical, sentiment, and fundamental indicator
 ### **A. Data and Feature Engineering**
 
 - `A_Data_Preprocessing.ipynb` — Loads and cleans raw hourly data  
-- `B_MAD_Indicator.ipynb` — Tests **Moving Average Distance (MAD)** for predictive power, inspired by *Avramov, Kaplanski & Subrahmanyam (2018)*  
+- `B_MAD_Indicator.ipynb` — Tests **Moving Average Distance (MAD)** as a mean reversion signal, inspired by *Avramov, Kaplanski & Subrahmanyam (2018)*  
 - `C_RSI_Indicator.ipynb` — Builds and evaluates **RSI-based features** across multiple time horizons  
 - `D_Volume_Indicators.ipynb` — Derives **volume-driven indicators** such as MFI and volume z-scores  
 - `E_Feature_Engineering.ipynb` — Combines all engineered indicators into a single modeling dataset
 
 ### **B. Modeling**
 
-- `F_RF_Direction_Model.ipynb` — Trains a **Random Forest direction model** to predict the probability of upward or downward price movement  
+- `F_RF_Direction_Model.ipynb` — Trains a **Random Forest direction model** to predict the probability of price reversion  
   - Empirically confirms **mean-reverting dynamics** in short to medium horizons (24–168 hours)  
   - Produces **model probabilities** used for further signal generation
 
@@ -54,11 +54,11 @@ The goal is to determine whether technical, sentiment, and fundamental indicator
 
 ## Methodology Summary
 
-1. **Feature Discovery** — Identify indicators with statistical or predictive significance  
+1. **Feature Discovery** — Identify indicators that reflect mean-reverting behavior  
 2. **Labeling** — Define future returns and binary direction labels  
-3. **Modeling** — Train ML models to capture directional patterns and mean reversion  
-4. **Signal Generation** — Use model confidence to generate tradeable buy/sell signals  
-5. **Evaluation** — Test predictive power and profitability across different horizons
+3. **Modeling** — Train ML models to detect price deviations and reversion likelihood  
+4. **Signal Generation** — Use model confidence to create tradeable reversion signals  
+5. **Evaluation** — Assess predictive power and profitability across horizons
 
 ---
 
@@ -66,8 +66,8 @@ The goal is to determine whether technical, sentiment, and fundamental indicator
 
 To build a **data-driven, interpretable trading framework** that combines:
 
-- **Technical indicators** (momentum, volatility, volume)  
-- **Empirical mean-reversion behavior**  
+- **Technical indicators** capturing mean-reverting effects  
+- **Empirical validation of reversion dynamics**  
 - **Machine learning–based directional forecasts**
 
 into a unified **signal-generation and strategy execution system** for cryptocurrency markets.
