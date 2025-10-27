@@ -5,6 +5,8 @@
 
 This project is **in active development**. 
 
+---
+
 This project builds and tests an **algorithmic trading strategy** for the **cryptocurrency market**.  
 The focus is on understanding whether technical, sentiment, and fundamental indicators contain **predictive power** for short-term market direction.
 
